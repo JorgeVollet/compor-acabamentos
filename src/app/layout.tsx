@@ -4,7 +4,6 @@ import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { CartProvider } from '@/context/CartContext';
 import { SiteDataProvider } from '@/context/SiteDataContext';
-import { getSiteData } from '@/lib/firestore';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -28,9 +27,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://composacabamentos.com.br' },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const siteData = await getSiteData();
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={montserrat.variable}>
       <head>
@@ -41,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body style={{ fontFamily: 'var(--font-body)' }}>
         <AuthProvider>
-          <SiteDataProvider initial={siteData}>
+          <SiteDataProvider>
             <CartProvider>
               {children}
             </CartProvider>

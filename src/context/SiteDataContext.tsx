@@ -11,9 +11,9 @@ interface SiteDataContextValue {
 
 const SiteDataContext = createContext<SiteDataContextValue>({ data: null, loading: true });
 
-export function SiteDataProvider({ initial, children }: { initial: SiteData; children: React.ReactNode }) {
-  const [data, setData] = useState<SiteData>(initial);
-  const [loading, setLoading] = useState(false);
+export function SiteDataProvider({ children }: { children: React.ReactNode }) {
+  const [data, setData] = useState<SiteData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsub = subscribeSiteData((d) => {
