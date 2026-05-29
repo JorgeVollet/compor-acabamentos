@@ -4,7 +4,14 @@
       "PowerShell(Head *)",
       "Bash(Test-Path *)",
       "Bash(powershell *)",
-      "PowerShell(Start-Sleep -Seconds 8; Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10 | Select-Object -ExpandProperty StatusCode)"
+      "PowerShell(Start-Sleep -Seconds 8; Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10 | Select-Object -ExpandProperty StatusCode)",
+      "Bash(git checkout *)",
+      "Bash(git clean *)",
+      "Bash(Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }
