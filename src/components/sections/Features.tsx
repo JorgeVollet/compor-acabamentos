@@ -3,18 +3,42 @@
 import { useEffect, useRef, useState } from 'react';
 
 const FEATURES = [
-  { target: 2000, prefix: '+', suffix: '', label: 'PRODUTOS', desc: 'Em estoque disponíveis para pronta entrega' },
-  { target: 25, prefix: '+', suffix: '', label: 'ANOS', desc: 'De experiência no mercado de acabamentos' },
-  { target: 50, prefix: '+', suffix: '', label: 'MARCAS', desc: 'Das melhores marcas nacionais e importadas' },
-  { target: 1, prefix: '0', suffix: '', label: 'EQUIPE', desc: 'Especializada, preparada para te auxiliar' },
+  {
+    target: 2000,
+    fixed: null as string | null,
+    prefix: '+ ',
+    label: 'Produtos em Estoque',
+    desc: 'Ampla variedade de pisos, revestimentos, metais e acessórios disponíveis para pronta entrega.',
+  },
+  {
+    target: 25,
+    fixed: null as string | null,
+    prefix: '+ ',
+    label: 'Anos no Mercado',
+    desc: 'Experiência sólida em atendimento a construtoras, arquitetos e clientes residenciais.',
+  },
+  {
+    target: 50,
+    fixed: null as string | null,
+    prefix: '+ ',
+    label: 'Marcas Exclusivas',
+    desc: 'Portfólio cuidadosamente selecionado com as melhores marcas nacionais e importadas.',
+  },
+  {
+    target: null as number | null,
+    fixed: '01',
+    prefix: '',
+    label: 'Equipe Especializada',
+    desc: 'Equipe técnica para auxiliar arquitetos, designers e clientes na escolha ideal para cada projeto.',
+  },
 ];
 
-function CountUp({ target, prefix, suffix, active }: { target: number; prefix: string; suffix: string; active: boolean }) {
+function CountUp({ target, fixed, prefix, active }: { target: number | null; fixed: string | null; prefix: string; active: boolean }) {
   const [val, setVal] = useState(0);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!active) return;
+    if (!active || target === null) return;
     const start = Date.now();
     const duration = 1800;
     const tick = () => {
@@ -28,8 +52,9 @@ function CountUp({ target, prefix, suffix, active }: { target: number; prefix: s
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, [active, target]);
 
-  if (target === 1) return <>{prefix}{target}{suffix}</>;
-  return <>{prefix}{val.toLocaleString('pt-BR')}{suffix}</>;
+  if (fixed !== null) return <>{fixed}</>;
+  if (target === null) return <>0</>;
+  return <>{prefix}{val.toLocaleString('pt-BR')}</>;
 }
 
 export function Features() {
@@ -37,9 +62,17 @@ export function Features() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setActive(true); obs.disconnect(); }
-    }, { threshold: 0.3 });
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(true);
+          // Adiciona classe visible pro fade-in funcionar
+          entry.target.classList.add('visible');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
@@ -49,7 +82,7 @@ export function Features() {
       {FEATURES.map((f) => (
         <div key={f.label} className="feature-box">
           <div className="feature-num">
-            <CountUp target={f.target} prefix={f.prefix} suffix={f.suffix} active={active} />
+            <CountUp target={f.target} fixed={f.fixed} prefix={f.prefix} active={active} />
           </div>
           <div className="feature-label">{f.label}</div>
           <p className="feature-desc">{f.desc}</p>

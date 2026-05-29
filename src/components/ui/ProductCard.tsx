@@ -1,6 +1,6 @@
 import type { Produto } from '@/types';
 import { getCategoryLabel } from '@/data/categories';
-import Image from 'next/image';
+import { cleanFotos } from '@/lib/format';
 
 interface ProductCardProps {
   produto: Produto;
@@ -8,12 +8,14 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ produto, onClick }: ProductCardProps) {
-  const thumb = produto.fotos[0] ?? '/logocompor2.png';
+  const fotos = cleanFotos(produto.fotos);
+  const thumb = fotos[0] ?? '/logocompor2.png';
 
   return (
     <div className="product-card" onClick={() => onClick(produto)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onClick(produto)} aria-label={`Ver detalhes de ${produto.nome}`}>
       <div className="card-img-wrap">
-        <Image src={thumb} alt={produto.nome} fill className="card-img" sizes="(max-width: 768px) 100vw, 33vw" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={thumb} alt={produto.nome} className="card-img" loading="lazy" />
         {produto.badge && <span className="card-badge">{produto.badge}</span>}
         <div className="card-overlay"><span>Ver Produto</span></div>
       </div>

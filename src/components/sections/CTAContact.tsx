@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import type { LojaUnidade } from '@/types';
 
 interface CTAContactProps {
@@ -5,21 +8,34 @@ interface CTAContactProps {
 }
 
 export function CTAContact({ tm }: CTAContactProps) {
-  const phone = tm?.whatsapp?.replace(/\D/g, '') ?? '';
-  const url = phone
-    ? `https://wa.me/55${phone}?text=${encodeURIComponent('Olá! Gostaria de falar com um consultor da Compor Acabamentos.')}`
-    : '#';
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const whatsappNumber = (tm?.whatsapp || '5555984238121').replace(/\D/g, '');
+  const message = encodeURIComponent('Olá! Vim pelo site e gostaria de falar com um consultor sobre minha obra.');
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
   return (
-    <section className="cta-section fade-in">
-      <span className="cta-label">Consultoria Especializada</span>
-      <h2 className="cta-title">Pronto para transformar<br />seu ambiente?</h2>
+    <section ref={sectionRef} className="cta-section fade-in">
+      <div className="cta-label">Entre em Contato</div>
+      <h2 className="cta-title">
+        Não encontrou a especificação<br />
+        exata que procurava?
+      </h2>
       <p className="cta-text">
-        Nossa equipe de especialistas está pronta para te ajudar a escolher os melhores acabamentos para o seu projeto.
-        Entre em contato agora e receba um atendimento personalizado.
+        Nosso portfólio está em constante evolução e temos acesso direto aos maiores fabricantes do mercado.
+        Envie a planta ou a necessidade do seu projeto e nós encontramos a solução.
       </p>
-      <a href={url} target="_blank" rel="noopener noreferrer" className="cta-btn">
-        Falar com Consultor →
+      <a href={whatsappUrl} className="cta-btn" target="_blank" rel="noopener noreferrer">
+        Falar com um Consultor Agora
       </a>
     </section>
   );

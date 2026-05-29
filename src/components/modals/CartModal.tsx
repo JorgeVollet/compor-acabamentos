@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useCart } from '@/hooks/useCart';
+import { cleanFotos } from '@/lib/format';
 
 interface CartModalProps {
   open: boolean;
@@ -39,12 +39,14 @@ export function CartModal({ open, onClose, lojaWhatsapp }: CartModalProps) {
           <>
             {items.map((item) => (
               <div key={item.produto.id} className="cart-item">
-                <div style={{ position: 'relative', width: 60, height: 60, flexShrink: 0 }}>
-                  <Image
-                    src={item.produto.fotos[0] ?? '/logocompor2.png'}
+                <div style={{ flexShrink: 0 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={cleanFotos(item.produto.fotos)[0] ?? '/logocompor2.png'}
                     alt={item.produto.nome}
-                    fill
-                    style={{ objectFit: 'cover', borderRadius: 4 }}
+                    width={60}
+                    height={60}
+                    style={{ objectFit: 'cover', borderRadius: 4, width: 60, height: 60 }}
                   />
                 </div>
                 <div className="cart-item-info">

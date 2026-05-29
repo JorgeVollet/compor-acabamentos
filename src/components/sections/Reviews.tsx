@@ -1,12 +1,23 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { REVIEWS } from '@/data/reviews';
 
 export function Reviews() {
-  const doubled = [...REVIEWS, ...REVIEWS];
+  const looped = [...REVIEWS, ...REVIEWS];
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.05 }
+    );
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <section className="reviews-section fade-in">
+    <section ref={sectionRef} className="reviews-section fade-in">
       <div className="reviews-top">
         <div className="reviews-left-title">
           <span className="reviews-label">Avaliações do Google</span>
@@ -23,16 +34,20 @@ export function Reviews() {
 
       <div className="reviews-track-wrapper">
         <div className="reviews-track">
-          {doubled.map((r, i) => (
+          {looped.map((r, i) => (
             <div key={i} className="review-card">
               <div className="review-card-header">
-                <div className="review-avatar" style={{ background: r.avatarGradient }} aria-hidden="true">{r.initial}</div>
+                <div className="review-avatar" style={{ background: r.avatarGradient }} aria-hidden="true">
+                  {r.initial}
+                </div>
                 <div className="review-author-info">
                   <div className="review-author-name">{r.author}</div>
                   <div className="review-date">{r.date}</div>
                 </div>
               </div>
-              <div className="review-stars-row" aria-label={`${r.stars} estrelas`}>{'★'.repeat(r.stars)}</div>
+              <div className="review-stars-row" aria-label={`${r.stars} estrelas`}>
+                {'★'.repeat(r.stars)}
+              </div>
               <p className="review-text">{r.text}</p>
             </div>
           ))}

@@ -3,7 +3,8 @@
     "allow": [
       "PowerShell(Head *)",
       "Bash(Test-Path *)",
-      "Bash(powershell *)"
+      "Bash(powershell *)",
+      "PowerShell(Start-Sleep -Seconds 8; Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10 | Select-Object -ExpandProperty StatusCode)"
     ]
   }
 }

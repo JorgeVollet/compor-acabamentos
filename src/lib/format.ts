@@ -13,3 +13,8 @@ export function formatPrice(price: string): string {
 export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).slice(2);
 }
+
+export function cleanFotos(fotos: string[] | undefined): string[] {
+  if (!fotos || !Array.isArray(fotos)) return [];
+  return fotos.filter((f) => typeof f === 'string' && f.trim().startsWith('http'));
+}

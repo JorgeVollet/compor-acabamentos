@@ -37,7 +37,7 @@ export default function HomePage() {
       <Catalog initialProdutos={produtos} onProductClick={setSelectedProduto} />
       <Reviews />
       <Location loja={loja} />
-      <Footer loja={loja} assets={assets} />
+      <Footer loja={loja} />
       <WhatsAppFloat tm={loja.tm} />
       <BackToTop />
       <ProductModal produto={selectedProduto} onClose={() => setSelectedProduto(null)} lojaWhatsapp={loja.tm?.whatsapp} />

@@ -186,22 +186,21 @@ header.scrolled { height: 70px; background-color: rgba(5,5,5,0.98); box-shadow: 
 .card-link { font-size: 0.7rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
 
 /* LOCATION */
-.location-section { scroll-margin-top: 15px; margin-top: 4rem; }
-.location-section-header { text-align: center; padding: 2.5rem 5% 1.5rem 5%; background: var(--bg-color); }
-.location-stores-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 55vh; }
-.store-card { position: relative; overflow: hidden; }
-.store-card-img { width: 100%; height: 100%; object-fit: cover; min-height: 55vh; display: block; transition: transform 0.6s ease; }
-.store-card:hover .store-card-img { transform: scale(1.04); }
-.store-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,0.92) 0%, rgba(10,10,10,0.25) 55%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 2.5rem; transition: background 0.3s; }
-.store-card:hover .store-card-overlay { background: linear-gradient(to top, rgba(5,5,5,0.97) 0%, rgba(10,10,10,0.4) 55%, transparent 100%); }
-.store-card-city { font-size: 0.75rem; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 500; }
-.store-card-name { font-family: var(--font-title); font-size: 2rem; color: var(--white); margin-bottom: 1rem; line-height: 1.15; }
-.store-card-address { font-size: 0.85rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.5rem; }
-.store-card-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-.store-divider { position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.4), transparent); }
-.btn-dark { background: rgba(20,20,20,0.8); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.8rem 1.5rem; border-radius: 30px; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s; }
-.btn-dark:hover { background: var(--gold); color: var(--bg-color); border-color: var(--gold); }
-.loc-info { text-align: center; padding: 2.5rem 5%; background: var(--bg-color); color: var(--gray); font-size: 0.9rem; line-height: 1.8; }
+.location-section { padding: 100px 5%; background: var(--bg-color); }
+.location-section-header { text-align: center; margin-bottom: 4rem; }
+.location-stores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1400px; margin: 0 auto; }
+.store-card { position: relative; height: 600px; overflow: hidden; border-radius: 8px; background: var(--bg-card); }
+.store-card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.store-card:hover .store-card-img { transform: scale(1.05); }
+.store-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem 2rem; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 60%, transparent 100%); color: var(--white); }
+.store-card-city { display: block; font-size: 0.75rem; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 500; }
+.store-card-name { font-family: var(--font-title); font-size: 2rem; font-weight: 400; margin-bottom: 1rem; color: var(--white); line-height: 1.15; }
+.store-card-address { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.5rem; }
+.store-card-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.store-divider { display: none; }
+.btn-dark { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.7rem 1.2rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: var(--white); font-size: 0.75rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: var(--transition); white-space: nowrap; }
+.btn-dark:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.loc-info { text-align: center; margin-top: 3rem; color: var(--gray); font-size: 0.95rem; line-height: 1.8; }
 
 /* FOOTER */
 footer { background: var(--bg-footer); border-top: 1px solid rgba(255,255,255,0.05); padding: 5rem 5% 2rem 5%; }
@@ -309,7 +308,7 @@ footer { background: var(--bg-footer); border-top: 1px solid rgba(255,255,255,0.
   .grid-3 { grid-template-columns: 1fr; }
   .features { grid-template-columns: 1fr; }
   .location-stores-grid { grid-template-columns: 1fr; }
-  .store-card-img { min-height: 55vw; }
+  .store-card { height: 500px; }
   .store-card-actions { flex-wrap: wrap; gap: 0.6rem; }
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
   .admin-body { flex-direction: column; }

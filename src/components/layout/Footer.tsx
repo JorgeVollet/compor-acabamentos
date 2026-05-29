@@ -1,25 +1,22 @@
-import type { Loja, Assets } from '@/types';
-import Image from 'next/image';
+import type { Loja } from '@/types';
 
 interface FooterProps {
   loja: Loja;
-  assets: Assets;
 }
 
-export function Footer({ loja, assets }: FooterProps) {
+export function Footer({ loja }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
     <footer id="footer">
       <div className="footer-grid">
         <div>
-          <div className="footer-logo title-serif">
-            {assets.logo ? (
-              <Image src={assets.logo} alt="Compor Acabamentos" width={160} height={60} style={{ objectFit: 'contain' }} />
-            ) : (
-              <Image src="/logocompor2.png" alt="Compor Acabamentos" width={160} height={60} style={{ objectFit: 'contain' }} />
-            )}
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logocompor2.png"
+            alt="Logo Compor Acabamentos"
+            style={{ display: 'block', maxHeight: '70px', width: 'auto', objectFit: 'contain', margin: '0 0 1.5rem 0' }}
+          />
           <span className="footer-sub">Acabamentos de Alto Padrão</span>
           <p className="footer-desc">
             Há mais de 25 anos transformando ambientes com produtos de qualidade e atendimento especializado em Horizontina/RS.
